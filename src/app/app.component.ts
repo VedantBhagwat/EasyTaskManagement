@@ -7,14 +7,14 @@ import { TasksComponent } from './components/tasks/tasks.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, HeaderComponent, UserComponent, TasksComponent],
+  imports: [HeaderComponent, UserComponent, TasksComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
   title = 'EasyTaskManagement';
   users = DUMMY_USERS;
-  selectedUserId: string = 'u1';
+  selectedUserId?: string;
 
   get selectedUser() {
     return this.users.find((user) => {

@@ -20,6 +20,7 @@ import { User } from '../../interfaces/user.model';
 export class UserComponent {
   // Implementation using Property Binding and String Interpolation
   @Input({ required: true }) user!: User;
+  @Input({ required: true }) selected!: boolean;
   select = output<string>();
 
   get imagePath() {

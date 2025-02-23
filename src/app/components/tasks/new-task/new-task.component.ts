@@ -18,10 +18,6 @@ export class NewTaskComponent {
 
   private tasksService = inject(TasksService);
 
-  onCancel() {
-    this.cancel.emit();
-  }
-
   onSubmitNewTask() {
     this.tasksService.addTask(
       {

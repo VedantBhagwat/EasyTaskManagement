@@ -1,9 +1,11 @@
 import { Component, computed, inject, input } from '@angular/core';
 import { UsersService } from '../../../services/users.service';
+import { RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-user-tasks',
-  imports: [],
+  standalone: true,
+  imports: [RouterOutlet, RouterLink],
   templateUrl: './user-tasks.component.html',
   styleUrl: './user-tasks.component.scss',
 })

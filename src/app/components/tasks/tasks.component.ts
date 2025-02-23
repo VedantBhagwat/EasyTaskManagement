@@ -1,7 +1,7 @@
 import { Component, inject, Input } from '@angular/core';
 import { TaskComponent } from './task/task.component';
 import { NewTaskComponent } from './new-task/new-task.component';
-import { TasksService } from '../../services/tasks.service';
+import { Task } from '../../interfaces/task.model';
 
 @Component({
   selector: 'app-tasks',
@@ -10,20 +10,5 @@ import { TasksService } from '../../services/tasks.service';
   styleUrl: './tasks.component.scss',
 })
 export class TasksComponent {
-  @Input() userId!: string;
-  @Input() name!: string;
-  isAddingTask: boolean = false;
-  taskService: TasksService = inject(TasksService);
-
-  get selectedTasks() {
-    return this.taskService.getUserTasks(this.userId);
-  }
-
-  onAddTask() {
-    this.isAddingTask = true;
-  }
-
-  onCancelTask() {
-    this.isAddingTask = false;
-  }
+  userTasks: Task[] = [];
 }

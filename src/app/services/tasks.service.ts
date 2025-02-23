@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { NewTaskData } from '../interfaces/task.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TasksService {
-  private tasks = [
+  private tasks = signal([
     {
       id: 't1',
       userId: 'u1',
@@ -29,7 +29,9 @@ export class TasksService {
         'Prepare and describe an issue template which will help with project management',
       dueDate: '2024-06-15',
     },
-  ];
+  ]);
+
+  allTasks = this.tasks.asReadonly();
 
   constructor() {
     const tasks = localStorage.getItem('tasks');
@@ -39,12 +41,12 @@ export class TasksService {
   }
 
   getUserTasks(userId: string) {
-    return this.tasks.filter((task) => task.userId === userId);
+    return this.tasks().filter((task) => task.userId === userId);
   }
 
   addTask(data: NewTaskData, userId: string) {
     // add the new task at the start of the list
-    this.tasks.unshift({
+    this.tasks().unshift({
       id: new Date().getTime().toString(),
       userId: userId,
       title: data.title,
@@ -55,7 +57,9 @@ export class TasksService {
   }
 
   completeTask(id: string) {
-    this.tasks = this.tasks.filter((task) => task.id !== id);
+    this.tasks.update((prevTasks) =>
+      prevTasks.filter((task) => task.id !== id)
+    );
     this.saveTasks();
   }
 

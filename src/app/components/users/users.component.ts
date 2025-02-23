@@ -11,16 +11,4 @@ import { UserComponent } from './user/user.component';
 export class UsersComponent {
   private usersService = inject(UsersService);
   users = this.usersService.users;
-
-  selectedUserId?: string;
-
-  get selectedUser() {
-    return this.users.find((user) => {
-      return user.id === this.selectedUserId;
-    });
-  }
-
-  onSelectUser(id: string) {
-    this.selectedUserId = id;
-  }
 }

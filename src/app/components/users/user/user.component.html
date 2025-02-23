@@ -1,11 +1,6 @@
-<app-card>
-  <button (click)="onSelectUser()" [class.active]="selected">
-    <!-- Implementation using Property Binding and String Interpolation -->
-    <!-- <img [src]="imagePath" [alt]="selectedUser.name" /> -->
-    <!-- <span>{{ selectedUser.name }}</span> -->
-
-    <!-- Implementation using signals -->
-    <img [src]="imagePath" [alt]="user.name" />
-    <span>{{ user.name }}</span>
-  </button>
-</app-card>
+<div>
+  <a>
+    <img [src]="imagePath()" [alt]="user().name" />
+    <span>{{ user().name }}</span>
+  </a>
+</div>

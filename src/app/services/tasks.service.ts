@@ -36,23 +36,31 @@ export class TasksService {
   constructor() {
     const tasks = localStorage.getItem('tasks');
     if (tasks) {
-      this.tasks = JSON.parse(tasks);
+      // this.tasks = JSON.parse(tasks);
+      this.tasks.set(JSON.parse(tasks));
     }
-  }
-
-  getUserTasks(userId: string) {
-    return this.tasks().filter((task) => task.userId === userId);
   }
 
   addTask(data: NewTaskData, userId: string) {
     // add the new task at the start of the list
-    this.tasks().unshift({
+    /* this.tasks().unshift({
       id: new Date().getTime().toString(),
       userId: userId,
       title: data.title,
       summary: data.summary,
       dueDate: data.date,
-    });
+    }); */
+
+    this.tasks.update((prevTasks) => [
+      {
+        id: new Date().getTime().toString(),
+        userId: userId,
+        title: data.title,
+        summary: data.summary,
+        dueDate: data.date,
+      },
+      ...prevTasks,
+    ]);
     this.saveTasks();
   }
 
@@ -64,6 +72,6 @@ export class TasksService {
   }
 
   private saveTasks() {
-    localStorage.setItem('tasks', JSON.stringify(this.tasks));
+    localStorage.setItem('tasks', JSON.stringify(this.tasks()));
   }
 }

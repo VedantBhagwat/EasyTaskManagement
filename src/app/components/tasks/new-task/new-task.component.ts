@@ -27,6 +27,5 @@ export class NewTaskComponent {
       },
       this.userId()
     );
-    this.cancel.emit();
   }
 }

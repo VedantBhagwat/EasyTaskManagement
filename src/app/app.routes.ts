@@ -6,28 +6,15 @@ import {
   resolveUserName,
   UserTasksComponent,
 } from './components/users/user-tasks/user-tasks.component';
-import { TasksComponent } from './components/tasks/tasks.component';
-import {
-  canLeaveEditPage,
-  NewTaskComponent,
-} from './components/tasks/new-task/new-task.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { userRoutes } from './routes/users.routes';
 
 export const routes: Routes = [
   { path: '', component: NoTaskComponent, title: 'No Tasks Selected' },
   {
     path: 'users/:userId',
     component: UserTasksComponent,
-    children: [
-      { path: '', redirectTo: 'tasks', pathMatch: 'full' },
-      { path: 'tasks', component: TasksComponent },
-
-      {
-        path: 'tasks/new',
-        component: NewTaskComponent,
-        canDeactivate: [canLeaveEditPage],
-      },
-    ],
+    children: userRoutes,
     // Add static data to routes
     data: {
       message: 'Hello!',

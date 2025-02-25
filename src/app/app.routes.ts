@@ -7,14 +7,14 @@ import {
   UserTasksComponent,
 } from './components/users/user-tasks/user-tasks.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
-import { userRoutes } from './routes/users.routes';
 
 export const routes: Routes = [
   { path: '', component: NoTaskComponent, title: 'No Tasks Selected' },
   {
     path: 'users/:userId',
     component: UserTasksComponent,
-    children: userRoutes,
+    loadChildren: () =>
+      import('./routes/users.routes').then((mod) => mod.userRoutes),
     // Add static data to routes
     data: {
       message: 'Hello!',

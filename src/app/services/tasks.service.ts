@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { afterNextRender, Injectable, signal } from '@angular/core';
 import { NewTaskData } from '../interfaces/task.model';
 
 @Injectable({
@@ -34,11 +34,13 @@ export class TasksService {
   allTasks = this.tasks.asReadonly();
 
   constructor() {
-    const tasks = localStorage.getItem('tasks');
-    if (tasks) {
-      // this.tasks = JSON.parse(tasks);
-      this.tasks.set(JSON.parse(tasks));
-    }
+    afterNextRender(() => {
+      const tasks = localStorage.getItem('tasks');
+      if (tasks) {
+        // this.tasks = JSON.parse(tasks);
+        this.tasks.set(JSON.parse(tasks));
+      }
+    });
   }
 
   addTask(data: NewTaskData, userId: string) {
